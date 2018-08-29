@@ -24,17 +24,19 @@
 # =============================================================================
 #
 
-ROOT := $(realpath .)
-include $(ROOT)/Config.mk
+if (NOT DEFINED ROOT)
+  message(FATAL_ERROR "Please define ROOT variable to point to the repository's root folder.")
+endif (NOT DEFINED ROOT)
 
-DIRS = \
-	src
+set(OUTDIR ${ROOT}/out)
+set(BINDIR ${OUTDIR}/bin)
+set(LIBDIR ${OUTDIR}/lib)
+set(INCDIR ${OUTDIR}/inc)
+set(CFGDIR ${OUTDIR}/cfg)
+set(PKGDIR ${OUTDIR}/pkg)
 
-.PHONY: all clean $(DIRS)
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${LIBDIR})
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${LIBDIR})
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${BINDIR})
 
-all: $(DIRS)
-
-clean: $(DIRS)
-
-$(DIRS):
-	@$(MAKE) -C $@ $(MAKECMDGOALS) $$([ -f $@/Makefile.mk ] && echo -n "-f Makefile.mk")
+include(${ROOT}/Cpp.cmake)
