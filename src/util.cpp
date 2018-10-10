@@ -2,6 +2,7 @@
 
 #include "util.h"
 
+#ifndef _WIN32
 uint64_t htonll(uint64_t val)
 {
 #if __BYTE_ORDER__ == __ORDER_LITTLE_ENDIAN__
@@ -19,3 +20,4 @@ uint64_t ntohll(uint64_t val)
   return val;
 #endif
 }
+#endif

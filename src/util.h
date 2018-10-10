@@ -2,6 +2,7 @@
 
 #pragma once
 
+#ifndef _WIN32
 #include <arpa/inet.h>
 
 #define return_false_if(condition) \
@@ -12,3 +13,4 @@
 
 uint64_t htonll(uint64_t val);
 uint64_t ntohll(uint64_t val);
+#endif
